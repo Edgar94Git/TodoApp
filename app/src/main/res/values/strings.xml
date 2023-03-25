@@ -3,4 +3,10 @@
     <string name="text_title_categories">Categorias</string>
     <string name="text_welcome">Bienvienido!</string>
     <string name="text_sub_title_tasks">Tareas</string>
+    <string name="text_description">Descripcion</string>
+    <string name="hint_edit_text_add_task">Añade la tarea</string>
+    <string name="text_business">Negocios</string>
+    <string name="text_personal">Personal</string>
+    <string name="text_other">Otros</string>
+    <string name="text_add_task">Agregar tarea</string>
 </resources>
