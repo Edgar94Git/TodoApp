@@ -17,6 +17,6 @@
     <style name="TodoSubtitle">
         <item name="textAllCaps">true</item>
         <item name="android:textColor">@color/todo_subtitle_text</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>
