@@ -32,8 +32,27 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitleWelcome" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tvTitleCategories"/>
+
+    <TextView
+        android:id="@+id/tvTasks"
+        style="@style/TodoSubtitle"
+        android:layout_marginStart="@dimen/common_margin_default"
+        android:layout_marginTop="@dimen/common_margin_default"
+        android:text="@string/text_sub_title_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rvCategories"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTasks"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
