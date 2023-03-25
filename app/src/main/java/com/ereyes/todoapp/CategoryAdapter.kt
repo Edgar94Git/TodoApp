@@ -19,36 +19,7 @@ class CategoryAdapter(private val categories: List<Category>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        val category = categories[position]
-        with(holder){
-            setListener(category)
-            when(category){
-                Category.Business -> {
-                    with(binding){
-                        tvCategory.text = "Negocios"
-                        vDivider.setBackgroundColor(
-                            ContextCompat.getColor(vDivider.context, R.color.todo_business_category)
-                        )
-                    }
-                }
-                Category.Personal -> {
-                    with(binding){
-                        tvCategory.text = "Personal"
-                        vDivider.setBackgroundColor(
-                            ContextCompat.getColor(vDivider.context, R.color.todo_personal_category)
-                        )
-                    }
-                }
-                Category.Other -> {
-                    with(binding){
-                        tvCategory.text = "Otros"
-                        vDivider.setBackgroundColor(
-                            ContextCompat.getColor(vDivider.context, R.color.todo_other_category)
-                        )
-                    }
-                }
-            }
-        }
+        holder.sender(categories[position])
     }
 
     override fun getItemCount() = categories.size
