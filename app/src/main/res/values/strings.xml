@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TodoApp</string>
+    <string name="text_title_categories">Categorias</string>
+    <string name="text_welcome">Bienvienido!</string>
 </resources>
