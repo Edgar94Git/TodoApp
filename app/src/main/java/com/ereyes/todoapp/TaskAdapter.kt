@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
  * Created by Edgar Reyes Gonzalez on 3/25/2023 at 11:54 AM
  * All rights reserved 2023.
  ****/
-class TaskAdapter(private val tasks: List<Task>): RecyclerView.Adapter<TaskViewHolder>() {
+class TaskAdapter(private val tasks: List<Task>, private val onTaskSelected: (Int) -> Unit) :
+    RecyclerView.Adapter<TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
@@ -18,13 +19,9 @@ class TaskAdapter(private val tasks: List<Task>): RecyclerView.Adapter<TaskViewH
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = tasks[position]
-        with(holder){
-            setListener(task)
-            with(binding){
-                tvTask.text = task.name
-                cbTask.isChecked = task.isSelected
-            }
+        holder.sender(tasks[position])
+        holder.itemView.setOnClickListener {
+            onTaskSelected(position)
         }
     }
 

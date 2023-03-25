@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ereyes.todoapp.databinding.ActivityMainBinding
 import com.ereyes.todoapp.Category.*
 import com.ereyes.todoapp.databinding.DialogTaskBinding
+import com.google.android.material.snackbar.Snackbar
+import java.text.FieldPosition
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvCategories.adapter = categoryAdapter
         binding.rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        taskAdapter = TaskAdapter(tasks)
+        taskAdapter = TaskAdapter(tasks){ position -> onTaskSelected(position)}
         binding.rvTasks.adapter = taskAdapter
         binding.rvTasks.layoutManager = LinearLayoutManager(this)
     }
@@ -72,17 +74,29 @@ class MainActivity : AppCompatActivity() {
         val selectedId = rgCategories.checkedRadioButtonId
         val selectedRadioButton: RadioButton = rgCategories.findViewById(selectedId)
         val task = etTask.text.toString().trim()
-        val currentCategory: Category = when(selectedRadioButton.text){
-            getString(R.string.text_business) -> Business
-            getString(R.string.text_personal) -> Personal
-            else -> Other
+
+        if(task.isNotEmpty()){
+            val currentCategory: Category = when(selectedRadioButton.text){
+                getString(R.string.text_business) -> Business
+                getString(R.string.text_personal) -> Personal
+                else -> Other
+            }
+            addTask(Task(task, currentCategory))
         }
-        addTask(Task(task, currentCategory))
     }
 
     private fun addTask(task: Task) {
         tasks.add(task)
-        taskAdapter.notifyDataSetChanged()
+        updateAdapterTask()
         dialogTask.hide()
+    }
+
+    private fun updateAdapterTask(){
+        taskAdapter.notifyDataSetChanged()
+    }
+
+    private fun onTaskSelected(position: Int){
+        tasks[position].isSelected = !tasks[position].isSelected
+        updateAdapterTask()
     }
 }
