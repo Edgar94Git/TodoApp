@@ -14,6 +14,13 @@ import com.ereyes.todoapp.databinding.ItemCategoryBinding
 class CategoryViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemCategoryBinding.bind(view)
     fun sender(category: Category){
+
+        val color = if(category.isSelected) R.color.todo_background_card else R.color.todo_background_disabled
+
+        binding.cvCategory.setCardBackgroundColor(
+            ContextCompat.getColor(binding.cvCategory.context, color)
+        )
+
         when(category){
             Category.Business -> {
                 loadedData(R.string.text_business, R.color.todo_business_category)

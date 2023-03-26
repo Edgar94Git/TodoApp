@@ -10,9 +10,6 @@ import android.widget.RadioGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ereyes.todoapp.databinding.ActivityMainBinding
 import com.ereyes.todoapp.Category.*
-import com.ereyes.todoapp.databinding.DialogTaskBinding
-import com.google.android.material.snackbar.Snackbar
-import java.text.FieldPosition
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +20,11 @@ class MainActivity : AppCompatActivity() {
     )
 
     private val tasks = mutableListOf(
-        Task("Prueba", Business),
-        Task("Prueba", Personal),
-        Task("Prueba", Other)
+        Task("Negocios", Business),
+        Task("Negocios 02", Business),
+        Task("Personal 01", Personal),
+        Task("Otros ", Other),
+        Task("Otros 01", Other)
     )
 
     private lateinit var binding: ActivityMainBinding
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAdapter(){
-        categoryAdapter = CategoryAdapter(categories)
+        categoryAdapter = CategoryAdapter(categories) { position -> updateCategory(position) }
         binding.rvCategories.adapter = categoryAdapter
         binding.rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -92,11 +91,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateAdapterTask(){
+        val selectedCategories: List<Category> = categories.filter { it.isSelected }
+        val newTask = tasks.filter { selectedCategories.contains(it.category) }
+        taskAdapter.tasks = newTask
         taskAdapter.notifyDataSetChanged()
     }
 
     private fun onTaskSelected(position: Int){
         tasks[position].isSelected = !tasks[position].isSelected
         updateAdapterTask()
+    }
+
+    private fun updateCategory(position: Int){
+        categories[position].isSelected = !categories[position].isSelected
+        categoryAdapter.notifyItemChanged(position)
+        updateAdapterTask()
+    }
+
+    private fun updateAdapterCategory() {
+        categoryAdapter.notifyDataSetChanged()
     }
 }
